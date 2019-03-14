@@ -30,8 +30,11 @@ gem 'puma', '~> 3.11'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-# gem 'trailblazer'
-# gem 'trailblazer-rails'
+gem 'dry-validation'
+gem 'reform'
+gem 'reform-rails'
+gem 'trailblazer'
+gem 'trailblazer-rails'
 
 gem 'devise'
 gem 'devise_invitable', '~> 2.0.0'

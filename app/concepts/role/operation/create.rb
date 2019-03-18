@@ -6,8 +6,6 @@ class Role::Create < ApplicationOperation
   step Contract::Validate()
   step Contract::Persist()
 
-  failure :log_error!
   step :notify!
+  failure :log_error!
 end
-
-# Role::Create.({title: 'user'}, user: User.first, project: Project.first)

@@ -2,13 +2,12 @@
 
 class User::Create < ApplicationOperation
   step Nested(User::Operation::Init)
-
   step Contract::Validate()
   step Contract::Persist()
 
   step :assign_role
+  failure :delete_user!
 
-  failure :log_error!
   step :notify!
 
   def assign_role(options, model:, params:, **)
@@ -16,8 +15,10 @@ class User::Create < ApplicationOperation
                         title: options[:role]
                       },
                       user: model,
-                      project: options[:project])
+                      project: options[:project]).success?
+  end
+
+  def delete_user!(_options, model:, params:, **)
+    model.destroy!
   end
 end
-
-# User::Create.({name: 'qqqq', email: 'qwe@qwe.qwe113'}, role: 'admin', project: Project.first)

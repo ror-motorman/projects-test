@@ -1,23 +1,19 @@
 # frozen_string_literal: true
 
 class User::Invite < ApplicationOperation
-  step Nested(User::Create)
+  step Wrap(active_record_transaction) {
+    step Nested(User::Create)
 
-  # step Nested(Role::Create)
+    # step Nested(Role::Create)
 
-  step :send_invitation
-
-  failure :log_error!
+    step :queue_invitation
+  }
   step :notify!
+  failure :log_error!
 
-  def send_invitation(options, model:, **)
-    p '====='
-    pp options[:current_user]
-    pp model
-    p '====='
-
-    model.invite!(options[:current_user])
+  def queue_invitation(options, model:, **)
+    model.skip_invitation = true
+    model.invite!(options[:inviter])
+    SendInvitationWorker.perform_async(model.id)
   end
 end
-
-# User::Invite.({name: 'qqqq', email: 'qwe1@qwe.qwe1134'}, role: 'admin', project: Project.first, current_user: User.last)

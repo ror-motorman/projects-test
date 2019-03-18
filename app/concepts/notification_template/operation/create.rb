@@ -7,13 +7,12 @@ class NotificationTemplate::Create < ApplicationOperation
   step Contract::Validate()
   step Contract::Persist()
 
-  failure :log_error!
   step :notify!
+  failure :log_error!
 
   def assign_data(options, model:, params:, **)
     model.title = params[:title]
     model.project = options[:project]
+    model.suitable_roles = options[:suitable_roles]
   end
 end
-
-# NotificationTemplate::Create.({title: 'NotificationTemplate', content: 'some'}, project: Project.last)

@@ -5,8 +5,6 @@ class Role::Operation::Init < ApplicationOperation
   step :assign_data
   step Contract::Build(constant: Role::Contract::Create)
 
-  step :notify!
-
   def assign_data(options, model:, params:, **)
     model.title = params[:title]
     model.user = options[:user]

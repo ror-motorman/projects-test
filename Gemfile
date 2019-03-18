@@ -30,14 +30,19 @@ gem 'puma', '~> 3.11'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# trailblazer stuff
 gem 'dry-validation'
 gem 'reform'
 gem 'reform-rails'
 gem 'trailblazer'
 gem 'trailblazer-rails'
 
+# devise
 gem 'devise'
 gem 'devise_invitable', '~> 2.0.0'
+
+# Background tasks processing
+gem 'sidekiq'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
@@ -58,6 +63,10 @@ group :development do
 
   gem 'rubocop'
   gem 'rubocop-rspec'
+end
+
+group :test do
+  gem 'database_cleaner'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

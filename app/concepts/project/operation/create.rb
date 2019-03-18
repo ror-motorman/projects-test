@@ -6,8 +6,6 @@ class Project::Create < ApplicationOperation
   step Contract::Validate()
   step Contract::Persist()
 
-  failure :log_error!
   step :notify!
+  failure :log_error!
 end
-
-# Project::Create.({title: 'project'})

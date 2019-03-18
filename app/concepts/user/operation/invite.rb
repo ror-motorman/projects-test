@@ -3,9 +3,6 @@
 class User::Invite < ApplicationOperation
   step Wrap(active_record_transaction) {
     step Nested(User::Create)
-
-    # step Nested(Role::Create)
-
     step :queue_invitation
   }
   step :notify!

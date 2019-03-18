@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationOperation < Trailblazer::Operation
-  def notify!(_options, model:, **)
+  def notify!(_options, model: nil, **)
     Rails.logger.info("#{self.class.name} processed")
     true
   end

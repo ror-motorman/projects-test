@@ -12,8 +12,8 @@ class Location::Create < ApplicationOperation
   step :notify!
   failure :log_error!
 
-  def assign_data(options, model:, params:, **)
+  def assign_data(_options, model:, params:, **)
     model.title = params[:title]
-    model.project = options[:project]
+    model.project = params[:project]
   end
 end

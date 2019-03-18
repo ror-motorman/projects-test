@@ -3,21 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe User::Invite do
-  let(:project) { Project::Create.call(title: 'Project')['model'] }
-  let(:location) { Location::Create.call({ title: 'Location' }, project: project) }
-  let! (:notification_template) do
-    NotificationTemplate::Create.call({
-                                        title: 'NotificationTemplate', content: 'some'
-                                      },
-                                      project: project,
-                                      suitable_roles: %w[admin user])
-  end
-  let(:invitee_name) { 'Invitee Name' }
-  let(:invitee_email) { 'invitee@example.com' }
-  let(:inviter_email) { 'inviter@example.com' }
-  let(:inviter_user) do
-    User::Create.call({ name: 'Inviter Name', email: inviter_email }, role: 'admin', project: project)['model']
-  end
+  include_examples 'shared data'
 
   it 'creates a user with invitation and subscription' do
     result = described_class.call(
